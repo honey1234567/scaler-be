@@ -1,0 +1,64 @@
+**Raw Problem**
+Write code to achieve the following
+A class Client with main method that prints: I am the main class
+Client class should create a new thread and invoke code in a class called Adder.
+The Adder class should print: I am the Adder class
+Client class should create a new thread and invoke code in a class called Subtractor.
+The Subtractor class should print: I am the Subtractor class
+
+//////////////////////////////////////////////
+class Adder implements Runnable{
+
+    public void run(){
+
+        System.out.println("I am the Adder class");
+
+    }
+
+}
+
+
+
+
+
+class Subtractor implements Runnable{
+
+    public void run()
+
+    {
+
+      System.out.println("I am the Subtractor class");
+
+    }
+
+}
+
+
+
+class Client{
+
+
+
+    public static void main(String[] args)
+
+    {
+
+        System.out.println("I am the main class");
+
+        Adder a=new Adder();
+
+        ScalerThread t1=new ScalerThread(a);
+
+        t1.start();
+
+
+        Subtractor s=new Subtractor();
+
+        ScalerThread t2=new ScalerThread(s);
+
+        t2.start();
+
+    }
+
+}
+
