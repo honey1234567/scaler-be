@@ -1,0 +1,33 @@
+A class Client with a main method.
+Client class shall take two numbers as input from the user.
+Client class should create a new thread and invoke code in a class called Adder.
+Client class shall pass two numbers (taken as input from the user) to the Adder class.
+The Adder class should print the sum of two numbers passed to it.
+///////////////////////////////////////////////////////////////////
+public class Adder implements Runnable{
+    int a;
+    int b;
+
+    Adder(int a,int b){
+        this.a = a;
+        this.b =b;
+    }
+
+@Override
+    public void run() {
+        System.out.println(this.a + this.b);
+    }
+}
+
+import java.util.Scanner;
+public class Client{
+    public static void main(String[] args){
+     Scanner sc = new Scanner(System.in);
+     int a = sc.nextInt();
+     int b = sc.nextInt();
+     
+     Adder adder = new Adder(a,b);
+     ScalerThread t1 = new ScalerThread(adder);
+     t1.start();    
+    }
+}
