@@ -55,6 +55,7 @@ public class Student {
     }
 
     private Student(Builder builder){
+        //make builder inner class so that it can acess its private constructor
         this.name = builder.name;
         this.age = builder.age;
         this.psp = builder.psp;
@@ -63,7 +64,7 @@ public class Student {
     }
 
     public static Builder getBuilder(){
-        return new Builder();
+        return new Builder();//make builder class static as we are claling it from static method
     }
 
     public static class Builder {
