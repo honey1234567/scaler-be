@@ -1,0 +1,36 @@
+
+
+What is a News Feed?
+A News Feed is a user interface feature displaying updates, such as posts from friends or followed users, as seen on platforms like Facebook and Twitter【4:17†transcript.txt】.
+It represents a real-time feed of updates relevant to a particular user, composed of posts made by their friends or followed profiles.
+System Design Overview
+Initial Consideration
+Envision a baseline system akin to Facebook circa 2004, where foundational elements like user accounts and post creation were already established【4:17†transcript.txt】.
+The design problem we address is efficiently fetching the News Feed for millions of users.
+Database Schema
+User Table: Details about each user.
+Post Table: Stores the posts with attributes like ID, user ID, and timestamps. This table is often sharded across machines due to its size【4:11†transcript.txt】.
+Friends Table: A mapping table indicating friendships between users【4:12†transcript.txt】.
+Key Challenges
+Efficiently fetching the News Feed from a potentially gigantic dataset.
+Handling the "celebrity problem" where a user with numerous followers places excessive load on the system when they post【4:13†transcript.txt】.
+Solution Approaches
+Approach 1: Caching News Feeds
+Concept: Cache the News Feed of each user, where the cache key is the user ID, and the value is a list of post IDs from their friends【4:10†transcript.txt】.
+Advantages: Fast retrieval (O(1) complexity) for getting feeds as the data is instantly accessible from the cache【4:0†transcript.txt】.
+Challenges:
+High storage requirement as user feeds are cached entirely.
+The celebrity problem: Extreme load when caching posts from a user with millions of followers【4:18†transcript.txt】.
+Approach 2: Cached Focus on Post Creation and Access
+Improved Caching Strategy: Cache user-specific data, focusing on posts made by a particular user in recent periods (e.g., 30 days), possibly aggregated across multiple machines to distribute load【4:14†transcript.txt】.
+Handling Post Requests: When a user makes a post, store it in a database shard and asynchronously update cache copies【4:16†transcript.txt】.
+Fetching Feeds: Fetch user-specific News Feeds by retrieving friend IDs and combining posts from cache machines【4:14†transcript.txt】.
+Solving the Celebrity Problem
+Instead of directly affecting numerous friend caches, centralize the processing for posts by storing them once and utilizing distributed caching mechanisms【4:16†transcript.txt】.
+Considerations and Advanced Topics
+Sharding Strategy: Utilize user ID as a sharding key to distribute load evenly across database servers, ensuring scalability【4:5†transcript.txt】.
+Cache Efficiency: Use replication in cache systems to ensure availability and balance loads from simultaneous user requests【4:15†transcript.txt】.
+Data Volume and Replication: Recognize that physical storage limits (e.g., 1 TB for post data) necessitate smart caching and sharding strategies【4:11†transcript.txt】.
+Conclusion
+Building a News Feed system involves managing vast amounts of data and optimizing access patterns using advanced caching and sharding techniques. System design requires balancing between resource efficiency and user experience while solving potential bottlenecks like the celebrity problem【4:19†transcript.txt】.
+
